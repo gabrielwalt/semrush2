@@ -14,13 +14,20 @@ function moveInstrumentation(from, to) {
     });
 }
 
+function updateCounter(block) {
+  const counter = block.querySelector('.carousel-testimonial-counter');
+  if (!counter) return;
+  const total = block.querySelectorAll('.carousel-testimonial-slide').length;
+  const current = parseInt(block.dataset.activeSlide, 10) + 1;
+  counter.textContent = `${current} / ${total}`;
+}
+
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel-testimonial');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
   block.dataset.activeSlide = slideIndex;
 
   const slides = block.querySelectorAll('.carousel-testimonial-slide');
-
   slides.forEach((aSlide, idx) => {
     aSlide.setAttribute('aria-hidden', idx !== slideIndex);
     aSlide.querySelectorAll('a').forEach((link) => {
@@ -32,14 +39,7 @@ function updateActiveSlide(slide) {
     });
   });
 
-  const indicators = block.querySelectorAll('.carousel-testimonial-slide-indicator');
-  indicators.forEach((indicator, idx) => {
-    if (idx !== slideIndex) {
-      indicator.querySelector('button').removeAttribute('disabled');
-    } else {
-      indicator.querySelector('button').setAttribute('disabled', 'true');
-    }
-  });
+  updateCounter(block);
 }
 
 export function showSlide(block, slideIndex = 0) {
@@ -57,22 +57,19 @@ export function showSlide(block, slideIndex = 0) {
 }
 
 function bindEvents(block) {
-  const slideIndicators = block.querySelector('.carousel-testimonial-slide-indicators');
-  if (!slideIndicators) return;
+  const prev = block.querySelector('.slide-prev');
+  const next = block.querySelector('.slide-next');
 
-  slideIndicators.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', (e) => {
-      const slideIndicator = e.currentTarget.parentElement;
-      showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
+  if (prev) {
+    prev.addEventListener('click', () => {
+      showSlide(block, parseInt(block.dataset.activeSlide, 10) - 1);
     });
-  });
-
-  block.querySelector('.slide-prev').addEventListener('click', () => {
-    showSlide(block, parseInt(block.dataset.activeSlide, 10) - 1);
-  });
-  block.querySelector('.slide-next').addEventListener('click', () => {
-    showSlide(block, parseInt(block.dataset.activeSlide, 10) + 1);
-  });
+  }
+  if (next) {
+    next.addEventListener('click', () => {
+      showSlide(block, parseInt(block.dataset.activeSlide, 10) + 1);
+    });
+  }
 
   const slideObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -90,15 +87,10 @@ function createSlide(row, slideIndex, carouselId) {
   slide.setAttribute('id', `carousel-testimonial-${carouselId}-slide-${slideIndex}`);
   slide.classList.add('carousel-testimonial-slide');
 
-  row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    column.classList.add(`carousel-testimonial-slide-${colIdx === 0 ? 'image' : 'content'}`);
+  row.querySelectorAll(':scope > div').forEach((column) => {
+    column.classList.add('carousel-testimonial-slide-content');
     slide.append(column);
   });
-
-  const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
-  if (labeledBy) {
-    slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
-  }
 
   return slide;
 }
@@ -118,39 +110,11 @@ export default async function decorate(block) {
 
   const slidesWrapper = document.createElement('ul');
   slidesWrapper.classList.add('carousel-testimonial-slides');
-  block.prepend(slidesWrapper);
-
-  let slideIndicators;
-  if (!isSingleSlide) {
-    const slideIndicatorsNav = document.createElement('nav');
-    slideIndicatorsNav.setAttribute('aria-label', placeholders.carouselSlideControls || 'Carousel Slide Controls');
-    slideIndicators = document.createElement('ol');
-    slideIndicators.classList.add('carousel-testimonial-slide-indicators');
-    slideIndicatorsNav.append(slideIndicators);
-    block.append(slideIndicatorsNav);
-
-    const slideNavButtons = document.createElement('div');
-    slideNavButtons.classList.add('carousel-testimonial-navigation-buttons');
-    slideNavButtons.innerHTML = `
-      <button type="button" class= "slide-prev" aria-label="${placeholders.previousSlide || 'Previous Slide'}"></button>
-      <button type="button" class="slide-next" aria-label="${placeholders.nextSlide || 'Next Slide'}"></button>
-    `;
-
-    container.append(slideNavButtons);
-  }
 
   rows.forEach((row, idx) => {
     const slide = createSlide(row, idx, carouselId);
     moveInstrumentation(row, slide);
     slidesWrapper.append(slide);
-
-    if (slideIndicators) {
-      const indicator = document.createElement('li');
-      indicator.classList.add('carousel-testimonial-slide-indicator');
-      indicator.dataset.targetSlide = idx;
-      indicator.innerHTML = `<button type="button" aria-label="${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}"></button>`;
-      slideIndicators.append(indicator);
-    }
     row.remove();
   });
 
@@ -158,6 +122,15 @@ export default async function decorate(block) {
   block.prepend(container);
 
   if (!isSingleSlide) {
+    const nav = document.createElement('div');
+    nav.classList.add('carousel-testimonial-nav');
+    nav.innerHTML = `
+      <button type="button" class="slide-prev" aria-label="${placeholders.previousSlide || 'Previous Slide'}"></button>
+      <span class="carousel-testimonial-counter" aria-hidden="true">1 / ${rows.length}</span>
+      <button type="button" class="slide-next" aria-label="${placeholders.nextSlide || 'Next Slide'}"></button>
+    `;
+    // Nav bar sits above the slides, matching the source layout.
+    block.prepend(nav);
     bindEvents(block);
   }
 }

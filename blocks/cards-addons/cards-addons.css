@@ -1,28 +1,96 @@
+/* cards-addons — "Improve your plan with add-ons" grid.
+   Values extracted from source computed styles on
+   https://www.semrush.com/pricing/seo/ (the ul[class*="cards--"] add-ons grid).
+   Colors are the brand near-black (rgb(24,30,21)) at various alphas, matching
+   the source oklch values. Buttons/CTAs never use pure #000 per design team. */
+
 .cards-addons > ul {
   list-style: none;
-  margin: 0;
+  margin: 32px 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  grid-template-columns: 1fr;
   gap: 24px;
 }
 
+@media (width >= 900px) {
+  .cards-addons > ul {
+    /* Source: two equal columns (526px 526px at 1440px), 24px gap */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .cards-addons > ul > li {
-  border: 1px solid #dadada;
+  position: relative;
   background-color: var(--background-color);
+
+  /* Source border: oklch(0.176 0.033 175.7 / 0.07) ≈ near-black at 7% alpha */
+  border: 1px solid rgb(24 30 21 / 7%);
+  border-radius: 12px;
+
+  /* Source padding 24px 24px 24px 60px reserved a 60px icon column; the
+     authored EDS content has no icon, so content uses uniform 24px insets. */
+  padding: 24px;
+}
+
+/* Authored icon cell is empty (no icon in content) — collapse it so it does
+   not add vertical space. If an icon is added later, it renders top-left. */
+.cards-addons .cards-addons-card-image:empty {
+  display: none;
+}
+
+.cards-addons .cards-addons-card-image img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  margin-bottom: 12px;
 }
 
 .cards-addons .cards-addons-card-body {
-  margin: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
-.cards-addons .cards-addons-card-image {
-  line-height: 0;
+/* Card title — source: 21px / 600 / line-height 31.5px, near-black */
+.cards-addons .cards-addons-card-body h3 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 31.5px;
+  color: var(--brand-near-black);
 }
 
-.cards-addons > ul > li img {
-  width: 48px;
-  height: 48px;
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
+/* Price line — source: 16px / 400 / line-height 24px, near-black, sits tight
+   under the title. Authored as <strong>, but source renders regular weight. */
+.cards-addons .cards-addons-card-body p {
+  margin: 0;
+  font-size: var(--body-font-size-s);
+  line-height: 24px;
+  color: var(--brand-near-black);
+}
+
+.cards-addons .cards-addons-card-body p strong {
+  font-weight: 400;
+}
+
+/* Feature list — source: margin-top 16px, list-style none with custom bullet,
+   14px text, near-black at ~58% alpha. Native disc markers approximate the
+   source "•" glyphs (muted, ~8px gap). */
+.cards-addons .cards-addons-card-body ul {
+  margin: 16px 0 0;
+  padding: 0 0 0 18px;
+  list-style: disc;
+  font-size: var(--body-font-size-xs);
+  line-height: 19.88px;
+  color: rgb(24 30 21 / 58%);
+}
+
+.cards-addons .cards-addons-card-body ul li {
+  margin: 0;
+  padding-left: 4px;
+}
+
+.cards-addons .cards-addons-card-body ul li::marker {
+  color: rgb(24 30 21 / 58%);
 }

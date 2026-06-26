@@ -301,6 +301,14 @@ main .section.highlight {
   padding: 40px 0;
 }
 
+/* Accent section — light periwinkle-blue background matching the source
+   testimonials section (oklch(0.898 0.054 268.3) ≈ #c6cffb). Never pure black. */
+main .section.accent {
+  background-color: oklch(89.8% 0.054 268.3deg);
+  margin: 0;
+  padding: 40px 0;
+}
+
 /* Dark section — brand near-black background (never pure #000 per Semrush
    design team). Default content text flips to light for contrast. */
 main .section.dark {

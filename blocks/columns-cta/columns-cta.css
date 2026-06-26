@@ -1,45 +1,111 @@
+/* columns-cta — "Playing big? Request an Enterprise demo." CTA banner.
+   The block sits inside a .section.dark (near-black page background from
+   styles.css). This file styles the inner CARD that sits on that dark
+   background: a distinct rounded panel with a decorative SVG background,
+   light text, a light-blue checkmark feature list, and an inverted
+   (light) CTA button. Values extracted from the source banner. */
+
 .columns-cta {
-  background-color: #131313;
-  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   border-radius: 12px;
-  padding: 32px;
+  padding: 24px 24px 32px;
+
+  /* Distinct card surface (source rgb(34 37 45)) on the dark section, plus
+     the source decorative SVG corner artwork. */
+  background-color: rgb(34 37 45);
+  background-image: url("https://www.semrush.com/pricing/static/images/ent_bg.b38c7bfd7c1b37c4636b.svg");
+  background-repeat: no-repeat;
+  background-position: top right;
+  box-shadow: rgb(137 141 154 / 30%) 5px 5px 25px 0;
+  color: var(--background-color);
 }
 
+/* The single authored row holds two cells: cell 1 = heading + feature list,
+   cell 2 = the CTA. Stack them vertically (matches the source layout). */
 .columns-cta > div {
   display: flex;
   flex-direction: column;
+  gap: 24px;
+  margin: 0;
 }
 
-.columns-cta img {
-  width: 100%;
-}
-
+/* Content cell: heading + feature list */
 .columns-cta > div > div {
-  order: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
 }
 
-.columns-cta > div > .columns-cta-img-col {
-  order: 0;
+.columns-cta h2 {
+  margin: 0;
+  color: var(--background-color);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
-.columns-cta > div > .columns-cta-img-col img {
-  display: block;
+/* Feature list */
+.columns-cta ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--background-color);
+  font-size: var(--body-font-size-s);
+  line-height: 24px;
 }
 
-.columns-cta a.button {
-  background-color: #fff;
-  color: #131313;
+.columns-cta ul li {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+.columns-cta ul li + li {
+  margin-top: 4px;
+}
+
+/* Light-blue checkmark before each feature (source rgb(142,205,255)).
+   EDS has no source SVG here, so draw the checkmark with an inline
+   SVG mask so its color tracks the brand accent reliably. */
+.columns-cta ul li::before {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 24px;
+  margin-right: 8px;
+  background-color: rgb(142 205 255);
+  content: "";
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M13.707 3.793a1 1 0 0 1 0 1.414l-6.996 7a1 1 0 0 1-1.414 0L2.293 9.2a1 1 0 1 1 1.414-1.414l2.297 2.297 6.289-6.29a1 1 0 0 1 1.414 0Z"/></svg>') no-repeat center / 16px 16px;
+}
+
+/* CTA cell: inverted (light) button on the dark card */
+.columns-cta > div > div:last-child {
+  flex: 0 0 auto;
+}
+
+.columns-cta a.button:any-link {
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  padding: 0.5em 1.25em;
+  background-color: var(--background-color);
+  color: var(--brand-near-black);
+  font-weight: 500;
+}
+
+.columns-cta a.button:any-link:hover,
+.columns-cta a.button:any-link:focus-visible {
+  background-color: var(--light-color);
+  color: var(--brand-near-black);
+  text-decoration: none;
 }
 
 @media (width >= 900px) {
-  .columns-cta > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
-  }
-
-  .columns-cta > div > div {
-    flex: 1;
-    order: unset;
+  .columns-cta {
+    padding: 24px 24px 32px;
   }
 }

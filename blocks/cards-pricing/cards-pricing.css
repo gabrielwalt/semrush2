@@ -1,27 +1,164 @@
+/* cards-pricing — Semrush SEO pricing plan cards (Pro / Guru / Business).
+   Values extracted from getComputedStyle of ul[class*=cardsContainer] and its
+   card items on https://www.semrush.com/pricing/seo/ (viewport 1440).
+   Decorated DOM: .cards-pricing > ul > li > .cards-pricing-card-body
+   with h3 (plan), p (desc), p>strong (price), p (billed), p>a (CTA),
+   p>strong ("What's inside:"), ul>li (features). */
+
+/* container — 3 equal columns, 20px gap; mobile-first single column */
 .cards-pricing > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 
+@media (width >= 900px) {
+  .cards-pricing > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* card — white, rounded, soft shadow, no border */
 .cards-pricing > ul > li {
-  border: 1px solid #dadada;
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  border-radius: 12px;
   background-color: var(--background-color);
+  box-shadow: rgb(137 141 154 / 30%) 5px 5px 25px 0;
 }
 
 .cards-pricing .cards-pricing-card-body {
-  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 24px 24px 32px;
 }
 
-.cards-pricing .cards-pricing-card-image {
-  line-height: 0;
+/* plan name heading (h3 in EDS) */
+.cards-pricing .cards-pricing-card-body h3 {
+  margin: 0 0 2px;
+  font-family: var(--heading-font-family);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--brand-near-black);
 }
 
-.cards-pricing > ul > li img {
+/* short description — first paragraph */
+.cards-pricing .cards-pricing-card-body > p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42;
+  color: var(--brand-near-black);
+}
+
+/* price line: <strong>$117.33/mo</strong> */
+.cards-pricing .cards-pricing-card-body > p > strong {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--brand-near-black);
+}
+
+/* spacing above the price block */
+.cards-pricing .cards-pricing-card-body > p:has(> strong) {
+  margin-top: 16px;
+}
+
+/* "billed annually" muted note — paragraph immediately after the price */
+.cards-pricing .cards-pricing-card-body > p:has(> strong) + p {
+  margin-top: 0;
+  font-size: 14px;
+  color: rgb(24 30 21 / 58%);
+}
+
+/* CTA button — full-width near-black pill.
+   EDS auto-decorates the standalone <p><a> into .button-container / a.button. */
+.cards-pricing .cards-pricing-card-body .button-container {
+  margin: 16px 0 0;
+}
+
+.cards-pricing .cards-pricing-card-body a.button:any-link {
+  display: flex;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  padding: 9px 16px;
+
+  /* Brand near-black — never pure black (#000) per Semrush design team. */
+  background-color: var(--brand-near-black);
+  color: var(--background-color);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cards-pricing .cards-pricing-card-body a.button:any-link:hover,
+.cards-pricing .cards-pricing-card-body a.button:any-link:focus-visible {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  text-decoration: none;
+}
+
+/* "What's inside:" label (the last <strong> paragraph), preceded by a thin
+   separator rule that visually divides the CTA area from the feature list. */
+.cards-pricing .cards-pricing-card-body > p:last-of-type {
+  position: relative;
+  margin: 16px 0 12px;
+  padding-top: 16px;
+  font-size: 14px;
+  color: var(--brand-near-black);
+}
+
+.cards-pricing .cards-pricing-card-body > p:last-of-type::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: rgb(24 30 21 / 16%);
+}
+
+.cards-pricing .cards-pricing-card-body > p:last-of-type > strong {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42;
+}
+
+/* feature list — green check + text, 8px row spacing */
+.cards-pricing .cards-pricing-card-body > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cards-pricing .cards-pricing-card-body > ul > li {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0 0 0 24px;
+  font-size: 14px;
+  line-height: 1.42;
+  color: var(--brand-near-black);
+
+  /* 16px green check (matches source svg, fill rgb(0,170,125)) */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="%2300aa7d" d="M13.707 3.793a1 1 0 0 1 0 1.414l-6.996 7a1 1 0 0 1-1.414 0L2.293 9.2a1 1 0 0 1 1.414-1.414l2.297 2.3 6.289-6.292a1 1 0 0 1 1.414 0Z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: 0 2px;
+  background-size: 16px 16px;
+}
+
+.cards-pricing .cards-pricing-card-body > ul > li + li {
+  margin-top: 8px;
 }

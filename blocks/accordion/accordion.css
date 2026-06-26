@@ -1,61 +1,110 @@
-.accordion details {
-  border: 1px solid #dadada;
+/*
+ * Accordion Block — styled to match the Semrush FAQ accordion
+ * (https://www.semrush.com/pricing/seo/).
+ *
+ * Source treatment: a flat list of question rows (no bordered boxes, no
+ * dividers). Each question is a left-aligned row with a chevron-right icon
+ * that rotates 90deg (points down) when the item is open. Answers sit
+ * indented beneath the question. Values below come from getComputedStyle on
+ * the source FAQ items.
+ */
+
+.accordion {
+  /* Constrain like the source FAQ column rather than stretching full width. */
+  max-width: 720px;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
-.accordion details + details {
-  margin-top: 24px;
+/* Reset the boilerplate bordered-box treatment — the source has no per-item
+   border, background, or box. */
+.accordion .accordion-item {
+  border: none;
+  background: none;
 }
 
-.accordion details p {
-  margin-bottom: 0.8em;
+/* Items are separated only by a small spacing (source: 2px margin between
+   collapsed question rows). */
+.accordion .accordion-item + .accordion-item {
+  margin-top: 2px;
 }
 
-.accordion details summary {
+/* Question row (summary) ------------------------------------------------- */
+.accordion .accordion-item-label {
   position: relative;
-  padding: 0 16px;
-  padding-right: 46px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 12px;
+
+  /* Source question color is brand near-black (~88% opacity). */
+  color: var(--brand-near-black);
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
   cursor: pointer;
   list-style: none;
-  overflow: auto;
-  transition: background-color 0.2s;
+  transition: none;
 }
 
-.accordion details[open] summary {
-  background-color: var(--light-color);
-}
-
-.accordion details summary:focus,
-.accordion details summary:hover {
-  background-color: var(--light-color);
-}
-
-.accordion details summary::-webkit-details-marker {
+/* Remove the native disclosure marker. */
+.accordion .accordion-item-label::-webkit-details-marker {
   display: none;
 }
 
-.accordion details summary::after {
+.accordion .accordion-item-label::marker {
   content: '';
-  position: absolute;
-  top: 50%;
-  right: 18px;
-  transform: translateY(-50%) rotate(135deg);
-  width: 6px;
-  height: 6px;
-  border: 2px solid;
-  border-width: 2px 2px 0 0;
-  transition: transform 0.2s;
 }
 
-.accordion details[open] summary::after {
-  transform: translateY(-50%) rotate(-45deg);
+/* Source has no hover/open background on the question row. */
+.accordion .accordion-item-label:focus,
+.accordion .accordion-item-label:hover,
+.accordion .accordion-item[open] .accordion-item-label {
+  background: none;
 }
 
-.accordion details .accordion-item-body {
-  padding: 0 16px;
+/* Chevron-right icon, left of the label (replaces the boilerplate
+   right-side caret). 16x16, rotates from pointing-right (closed) to
+   pointing-down (open). */
+.accordion .accordion-item-label::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+  background-color: var(--brand-near-black);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6.293 12.707a1 1 0 0 1 0-1.414L9.586 8 6.293 4.707a1 1 0 0 1 1.414-1.414l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414 0Z'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-out;
 }
 
-.accordion details[open] .accordion-item-body {
-  border-top: 1px solid #dadada;
-  background-color: var(--background-color);
+.accordion .accordion-item[open] .accordion-item-label::before {
+  transform: rotate(90deg);
+}
+
+/* Answer body ------------------------------------------------------------ */
+.accordion .accordion-item-body {
+  /* Source answer padding: 12px 32px (indents text to align under the
+     question label). */
+  padding: 12px 32px;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.accordion .accordion-item[open] .accordion-item-body {
+  /* No top border or background change — flat treatment. */
+  border-top: none;
+  background: none;
+}
+
+.accordion .accordion-item-body p {
+  margin: 0;
+}
+
+.accordion .accordion-item-body p + p {
+  margin-top: 0.8em;
 }

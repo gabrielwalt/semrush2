@@ -41,5 +41,28 @@ export default async function decorate(block) {
     else tbody.append(tr);
   });
   table.append(thead, tbody);
+
+  // Enhance body cells to match the Semrush "Compare Plans" treatment.
+  const CHECK_SVG = '<svg class="table-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6.4 11.2 3.2 8l1.13-1.13L6.4 8.94l5.27-5.27L12.8 4.8z"/></svg>';
+  [...tbody.children].forEach((tr) => {
+    const cells = [...tr.children];
+    const valueCells = cells.slice(1);
+
+    // Category-group row: only the first cell has content, value cells empty.
+    const isGroupRow = cells.length > 1
+      && cells[0].textContent.trim() !== ''
+      && valueCells.every((c) => c.textContent.trim() === '');
+    if (isGroupRow) tr.classList.add('table-group-row');
+
+    // Affirmative value cells ("Yes") render as a green checkmark; the text
+    // is preserved as a visually-hidden accessible label.
+    valueCells.forEach((td) => {
+      if (td.textContent.trim().toLowerCase() === 'yes') {
+        td.classList.add('table-yes');
+        td.innerHTML = `${CHECK_SVG}<span class="table-yes-label">Yes</span>`;
+      }
+    });
+  });
+
   block.replaceChildren(table);
 }
