@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-addons",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-26T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.semrush.com/pricing/seo/",
+    "originPage": "Semrush SEO pricing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "addons",
+    "imagePattern": "icon"
+  },
+  "contentPattern": {
+    "structure": "icon + title + price + bullet feature list per card, 2x2 / 4-up grid",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "add-on / upsell cards (icon + title + price + bullet list)",
+      "feature option grids with a small leading icon"
+    ],
+    "notSuitableFor": [
+      "full pricing plan cards with CTA (use cards-pricing)",
+      "no-image stat grids (use cards-stats)",
+      "large image-led product/article cards"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/pricing/seo/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-26T00:00:00.000Z"
+  }
+}

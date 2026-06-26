@@ -1,0 +1,39 @@
+{
+  "variantName": "columns-cta",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-06-26T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.semrush.com/pricing/seo/",
+    "originPage": "Semrush SEO pricing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "cta-banner",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "two-up layout: heading + feature list on one side, CTA button on the other",
+    "buttonCount": 1,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "dark CTA / promo banners with a feature list and a button",
+      "enterprise / demo request banners",
+      "two-up text + action layouts"
+    ],
+    "notSuitableFor": [
+      "testimonial quote layouts (use columns-testimonial)",
+      "promo card layouts (use columns-promo)",
+      "plain side-by-side editorial content (use vanilla columns)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/pricing/seo/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-26T00:00:00.000Z"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "url": "https://www.semrush.com/pricing/",
+  "path": "pricing",
+  "timestamp": "2026-06-26T12:59:44.986Z",
+  "title": "SEO Toolkit Plans and Pricing | Semrush",
+  "template": "pricing",
+  "blocks": [
+    "cards-pricing",
+    "table",
+    "cards-addons",
+    "columns-cta",
+    "accordion",
+    "carousel-testimonial",
+    "carousel-testimonial"
+  ]
+}

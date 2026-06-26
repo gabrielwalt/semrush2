@@ -15,11 +15,11 @@ function moveInstrumentation(from, to) {
 }
 
 function updateActiveSlide(slide) {
-  const block = slide.closest('.carousel-resources');
+  const block = slide.closest('.carousel-testimonial');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
   block.dataset.activeSlide = slideIndex;
 
-  const slides = block.querySelectorAll('.carousel-resources-slide');
+  const slides = block.querySelectorAll('.carousel-testimonial-slide');
 
   slides.forEach((aSlide, idx) => {
     aSlide.setAttribute('aria-hidden', idx !== slideIndex);
@@ -32,7 +32,7 @@ function updateActiveSlide(slide) {
     });
   });
 
-  const indicators = block.querySelectorAll('.carousel-resources-slide-indicator');
+  const indicators = block.querySelectorAll('.carousel-testimonial-slide-indicator');
   indicators.forEach((indicator, idx) => {
     if (idx !== slideIndex) {
       indicator.querySelector('button').removeAttribute('disabled');
@@ -43,13 +43,13 @@ function updateActiveSlide(slide) {
 }
 
 export function showSlide(block, slideIndex = 0) {
-  const slides = block.querySelectorAll('.carousel-resources-slide');
+  const slides = block.querySelectorAll('.carousel-testimonial-slide');
   let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
   if (slideIndex >= slides.length) realSlideIndex = 0;
   const activeSlide = slides[realSlideIndex];
 
   activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
-  block.querySelector('.carousel-resources-slides').scrollTo({
+  block.querySelector('.carousel-testimonial-slides').scrollTo({
     top: 0,
     left: activeSlide.offsetLeft,
     behavior: 'smooth',
@@ -57,7 +57,7 @@ export function showSlide(block, slideIndex = 0) {
 }
 
 function bindEvents(block) {
-  const slideIndicators = block.querySelector('.carousel-resources-slide-indicators');
+  const slideIndicators = block.querySelector('.carousel-testimonial-slide-indicators');
   if (!slideIndicators) return;
 
   slideIndicators.querySelectorAll('button').forEach((button) => {
@@ -79,7 +79,7 @@ function bindEvents(block) {
       if (entry.isIntersecting) updateActiveSlide(entry.target);
     });
   }, { threshold: 0.5 });
-  block.querySelectorAll('.carousel-resources-slide').forEach((slide) => {
+  block.querySelectorAll('.carousel-testimonial-slide').forEach((slide) => {
     slideObserver.observe(slide);
   });
 }
@@ -87,11 +87,11 @@ function bindEvents(block) {
 function createSlide(row, slideIndex, carouselId) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
-  slide.setAttribute('id', `carousel-resources-${carouselId}-slide-${slideIndex}`);
-  slide.classList.add('carousel-resources-slide');
+  slide.setAttribute('id', `carousel-testimonial-${carouselId}-slide-${slideIndex}`);
+  slide.classList.add('carousel-testimonial-slide');
 
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    column.classList.add(`carousel-resources-slide-${colIdx === 0 ? 'image' : 'content'}`);
+    column.classList.add(`carousel-testimonial-slide-${colIdx === 0 ? 'image' : 'content'}`);
     slide.append(column);
   });
 
@@ -106,7 +106,7 @@ function createSlide(row, slideIndex, carouselId) {
 let carouselId = 0;
 export default async function decorate(block) {
   carouselId += 1;
-  block.setAttribute('id', `carousel-resources-${carouselId}`);
+  block.setAttribute('id', `carousel-testimonial-${carouselId}`);
   const rows = block.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
 
@@ -114,10 +114,10 @@ export default async function decorate(block) {
   block.setAttribute('aria-roledescription', placeholders.carousel || 'Carousel');
 
   const container = document.createElement('div');
-  container.classList.add('carousel-resources-slides-container');
+  container.classList.add('carousel-testimonial-slides-container');
 
   const slidesWrapper = document.createElement('ul');
-  slidesWrapper.classList.add('carousel-resources-slides');
+  slidesWrapper.classList.add('carousel-testimonial-slides');
   block.prepend(slidesWrapper);
 
   let slideIndicators;
@@ -125,12 +125,12 @@ export default async function decorate(block) {
     const slideIndicatorsNav = document.createElement('nav');
     slideIndicatorsNav.setAttribute('aria-label', placeholders.carouselSlideControls || 'Carousel Slide Controls');
     slideIndicators = document.createElement('ol');
-    slideIndicators.classList.add('carousel-resources-slide-indicators');
+    slideIndicators.classList.add('carousel-testimonial-slide-indicators');
     slideIndicatorsNav.append(slideIndicators);
     block.append(slideIndicatorsNav);
 
     const slideNavButtons = document.createElement('div');
-    slideNavButtons.classList.add('carousel-resources-navigation-buttons');
+    slideNavButtons.classList.add('carousel-testimonial-navigation-buttons');
     slideNavButtons.innerHTML = `
       <button type="button" class= "slide-prev" aria-label="${placeholders.previousSlide || 'Previous Slide'}"></button>
       <button type="button" class="slide-next" aria-label="${placeholders.nextSlide || 'Next Slide'}"></button>
@@ -146,7 +146,7 @@ export default async function decorate(block) {
 
     if (slideIndicators) {
       const indicator = document.createElement('li');
-      indicator.classList.add('carousel-resources-slide-indicator');
+      indicator.classList.add('carousel-testimonial-slide-indicator');
       indicator.dataset.targetSlide = idx;
       indicator.innerHTML = `<button type="button" aria-label="${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}"></button>`;
       slideIndicators.append(indicator);

@@ -1,0 +1,28 @@
+.cards-addons > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  gap: 24px;
+}
+
+.cards-addons > ul > li {
+  border: 1px solid #dadada;
+  background-color: var(--background-color);
+}
+
+.cards-addons .cards-addons-card-body {
+  margin: 16px;
+}
+
+.cards-addons .cards-addons-card-image {
+  line-height: 0;
+}
+
+.cards-addons > ul > li img {
+  width: 48px;
+  height: 48px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}

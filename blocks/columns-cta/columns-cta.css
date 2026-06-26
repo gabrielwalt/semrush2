@@ -1,0 +1,45 @@
+.columns-cta {
+  background-color: #131313;
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.columns-cta > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns-cta img {
+  width: 100%;
+}
+
+.columns-cta > div > div {
+  order: 1;
+}
+
+.columns-cta > div > .columns-cta-img-col {
+  order: 0;
+}
+
+.columns-cta > div > .columns-cta-img-col img {
+  display: block;
+}
+
+.columns-cta a.button {
+  background-color: #fff;
+  color: #131313;
+}
+
+@media (width >= 900px) {
+  .columns-cta > div {
+    align-items: center;
+    flex-direction: unset;
+    gap: 24px;
+  }
+
+  .columns-cta > div > div {
+    flex: 1;
+    order: unset;
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "variantName": "carousel-testimonial",
+  "baseBlock": "carousel",
+  "version": "1.0.0",
+  "created": "2026-06-26T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.semrush.com/pricing/seo/",
+    "originPage": "Semrush SEO pricing page",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "accent",
+    "density": "spacious",
+    "purpose": "testimonials-slider",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "centered quote text + author + company per slide, prev/next nav, no images",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "text-only customer testimonial / quote sliders (quote + author + company)",
+      "review or endorsement carousels without thumbnails"
+    ],
+    "notSuitableFor": [
+      "image-led feature sliders (use carousel-toolkits)",
+      "article/resource sliders with thumbnails (use carousel-resources)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/pricing/seo/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-26T00:00:00.000Z"
+  }
+}
