@@ -1,0 +1,30 @@
+:root {
+  /* Typography — Lazzer is Semrush's proprietary font; Inter (their declared
+     fallback, loaded via Google Fonts) is the delivered face. Lazzer is named
+     first so it resolves automatically if the font files are added later. */
+  --heading-font-family: "Lazzer", "Inter", sans-serif;
+  --body-font-family: "Lazzer", "Inter", sans-serif;
+
+  /* Colors */
+  --background-color: rgb(255, 255, 255);
+  --text-color: rgb(51, 51, 51);
+  --link-color: rgb(24, 30, 21);
+  --link-hover-color: rgb(24, 30, 21);
+
+  /* Brand near-black. Used for solid buttons and dark sections.
+     Per Semrush design team: buttons must NEVER use pure black (#000). */
+  --brand-near-black: rgb(24, 30, 21);
+
+  /* Spacing */
+  --section-padding: 64px;
+  --content-max-width: 1440px;
+  --nav-height: 84px;
+
+  /* Heading sizes (desktop) */
+  --heading-size-xxl: 84px;
+  --heading-size-xl: 64px;
+  --heading-size-l: 48px;
+  --heading-size-m: 24px;
+  --heading-size-s: 18px;
+  --heading-size-xs: 16px;
+}
