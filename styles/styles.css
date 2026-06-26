@@ -300,3 +300,21 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+/* Dark section — brand near-black background (never pure #000 per Semrush
+   design team). Default content text flips to light for contrast. */
+main .section.dark {
+  background-color: var(--dark-color);
+  margin: 0;
+  padding: 40px 0;
+  color: var(--background-color);
+}
+
+main .section.dark h1,
+main .section.dark h2,
+main .section.dark h3,
+main .section.dark h4,
+main .section.dark h5,
+main .section.dark h6 {
+  color: var(--background-color);
+}

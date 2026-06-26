@@ -1,3 +1,15 @@
+/* Carousel Toolkits — Semrush "Solutions" horizontal card slider.
+   Source: section.mp-toolkits. Cards are light-teal rounded panels shown
+   side-by-side; each card carries a brand label, a sub-headline, a preview
+   image and a description with a pill CTA. Values extracted from the source
+   via getComputedStyle. */
+
+.carousel-toolkits {
+  /* Source section padding: 120px 0 */
+  padding: 64px 0;
+  color: var(--brand-near-black);
+}
+
 .carousel-toolkits .carousel-toolkits-slides-container {
   position: relative;
 }
@@ -9,8 +21,10 @@
   padding: 0;
 }
 
+/* Horizontal scrolling track — multiple cards visible, 12px gap (source). */
 .carousel-toolkits .carousel-toolkits-slides {
   display: flex;
+  gap: 12px;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   overflow: scroll clip;
@@ -20,134 +34,223 @@
   display: none;
 }
 
+/* Card — light teal, rounded, 24px padding (source: bg rgb(220,238,235),
+   radius 5px, padding 24px, ~430px wide, 500px tall). */
 .carousel-toolkits .carousel-toolkits-slide {
-  flex: 0 0 100%;
+  flex: 0 0 86%;
+  max-width: 430px;
+  min-height: 500px;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  position: relative;
-  width: 100%;
-  min-height: min(50vw, calc(100dvh - var(--header-height)));
+  box-sizing: border-box;
+  padding: 24px;
+  border-radius: 5px;
+  background-color: rgb(220 238 235);
+  color: var(--brand-near-black);
+  overflow: clip;
 }
 
-.carousel-toolkits .carousel-toolkits-slide:has(.carousel-toolkits-slide-content[data-align='center']) {
+/* Content cell holds the whole card body. The image is nested between the
+   sub-headline and the description (see block JS) so the column order is
+   label, subtitle, image, description, CTA. */
+.carousel-toolkits .carousel-toolkits-slide-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Brand label (h3): small uppercase eyebrow. Source: 12px / 600 / line 12px /
+   uppercase / letter-spacing 0.24px. */
+.carousel-toolkits .carousel-toolkits-slide-content h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: 0.24px;
+  text-transform: uppercase;
+  color: var(--brand-near-black);
+}
+
+/* Sub-headline (h4). Source: 24px / 600 / line 28.8px / margin-top 14px. */
+.carousel-toolkits .carousel-toolkits-slide-content h4 {
+  margin: 14px 0 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28.8px;
+  color: var(--brand-near-black);
+}
+
+/* Description. Source: 16px / 500 / line 24px. Pushed toward the bottom so
+   the CTA sits at the card foot, matching the expanded source card. */
+.carousel-toolkits .carousel-toolkits-slide-content p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--brand-near-black);
+}
+
+/* First text paragraph after the image is the description; push it (and the
+   CTA below it) to the foot of the card. */
+.carousel-toolkits .carousel-toolkits-slide-image + p {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+/* CTA pill. Source: fill black (rgb(24,30,21)), white text, radius 100px,
+   padding 0 32px, 60px tall, 16px / 600. Uses brand-near-black per Semrush
+   rule (never pure black). */
+.carousel-toolkits .carousel-toolkits-slide-content .button-container {
+  margin: 24px 0 0;
+}
+
+.carousel-toolkits .carousel-toolkits-slide-content a.button:any-link {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  padding: 0 32px;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  background-color: var(--brand-near-black);
+  color: var(--background-color);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-decoration: none;
 }
 
-.carousel-toolkits .carousel-toolkits-slide:has(.carousel-toolkits-slide-content[data-align='right']) {
-  align-items: flex-end;
+.carousel-toolkits .carousel-toolkits-slide-content a.button:any-link:hover,
+.carousel-toolkits .carousel-toolkits-slide-content a.button:any-link:focus-visible {
+  background-color: var(--dark-color);
+  color: var(--light-color);
 }
 
-.carousel-toolkits .carousel-toolkits-slide .carousel-toolkits-slide-image picture {
-  position: absolute;
-  inset: 0;
+/* Preview image. Source poster: rounded, image 256x210 inside.
+   Sits between the heading and the description, centered. */
+.carousel-toolkits .carousel-toolkits-slide-image {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24px 0;
+  min-height: 0;
 }
 
-.carousel-toolkits .carousel-toolkits-slide .carousel-toolkits-slide-image picture > img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
+.carousel-toolkits .carousel-toolkits-slide-image picture {
+  display: block;
+  line-height: 0;
 }
 
-.carousel-toolkits .carousel-toolkits-slide .carousel-toolkits-slide-content {
-  z-index: 1;
-  margin: 68px;
-  padding: 16px;
-  color: white;
-  background-color: rgba(19 19 19 / 75%);
-  position: relative;
-  width: var(--slide-content-width, auto);
+.carousel-toolkits .carousel-toolkits-slide-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  object-fit: contain;
 }
 
+/* Slide indicators (dots) — used on mobile; hidden on wider screens where the
+   arrows drive navigation, matching the source which uses arrows only. */
 .carousel-toolkits .carousel-toolkits-slide-indicators {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 6px 12px;
-  padding: 12px;
-  background-color: var(--light-color);
+  margin-top: 24px;
+  padding: 0;
   line-height: 0;
 }
 
 .carousel-toolkits .carousel-toolkits-slide-indicator button {
-  width: 24px;
-  height: 24px;
+  width: 12px;
+  height: 12px;
   margin: 0;
   padding: 0;
+  border: 0;
   border-radius: 50%;
-  background-color: #dadada;
+  background-color: rgb(220 238 235);
   transition: background-color 0.2s;
+  cursor: pointer;
 }
 
 .carousel-toolkits .carousel-toolkits-slide-indicator button:disabled,
 .carousel-toolkits .carousel-toolkits-slide-indicator button:hover,
 .carousel-toolkits .carousel-toolkits-slide-indicator button:focus-visible {
-  background-color: var(--text-color);
+  background-color: var(--brand-near-black);
 }
 
+/* Navigation arrows. Source: 60x60 circles, transparent bg, 1px border
+   near-black, arrow glyph in near-black. Positioned top-right above the
+   track on desktop. */
 .carousel-toolkits .carousel-toolkits-navigation-buttons {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 12px;
-  right: 12px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 1;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 24px;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .carousel-toolkits .carousel-toolkits-navigation-buttons button {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 60px;
+  height: 60px;
   margin: 0;
-  border-radius: 50%;
   padding: 0;
-  background-color: rgba(19 19 19 / 25%);
-  transition: background-color 0.2s;
+  border: 1px solid var(--brand-near-black);
+  border-radius: 100px;
+  background-color: transparent;
+  color: var(--brand-near-black);
+  transition: background-color 0.2s, color 0.2s;
+  cursor: pointer;
 }
 
-.carousel-toolkits .carousel-toolkits-navigation-buttons button:hover,
-.carousel-toolkits .carousel-toolkits-navigation-buttons button:focus-visible {
-  background-color: rgba(19 19 19 / 75%);
+.carousel-toolkits .carousel-toolkits-navigation-buttons button[disabled] {
+  border-color: rgb(108 110 121);
+  cursor: default;
+}
+
+.carousel-toolkits .carousel-toolkits-navigation-buttons button:not([disabled]):hover,
+.carousel-toolkits .carousel-toolkits-navigation-buttons button:not([disabled]):focus-visible {
+  background-color: var(--brand-near-black);
+  color: var(--background-color);
 }
 
 .carousel-toolkits .carousel-toolkits-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid;
-  border-bottom: 0;
-  border-left: 0;
-  height: 12px;
-  width: 12px;
   position: absolute;
   top: 50%;
   left: calc(50% + 2px);
+  width: 10px;
+  height: 10px;
+  border: 2px solid currentcolor;
+  border-bottom: 0;
+  border-left: 0;
   transform: translate(-50%, -50%) rotate(-135deg);
 }
 
 .carousel-toolkits .carousel-toolkits-navigation-buttons button.slide-next::after {
-  transform: translate(-50%, -50%) rotate(45deg);
   left: calc(50% - 2px);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
-@media (width >= 600px) {
+@media (width >= 900px) {
+  .carousel-toolkits .carousel-toolkits-slide {
+    flex: 0 0 430px;
+  }
+
+  /* Arrows float to the top-right, above the card track (source layout). */
   .carousel-toolkits .carousel-toolkits-navigation-buttons {
-    left: 24px;
-    right: 24px;
+    position: absolute;
+    top: -108px;
+    right: 0;
+    margin-bottom: 0;
   }
 
-  .carousel-toolkits .carousel-toolkits-slide .carousel-toolkits-slide-content {
-    --slide-content-width: calc((100% - 184px) / 2);
-
-    margin: 92px;
-  }
-
-  .carousel-toolkits .carousel-toolkits-slide .carousel-toolkits-slide-content[data-align='justify'] {
-    --slide-content-width: auto;
+  .carousel-toolkits .carousel-toolkits-slide-indicators {
+    display: none;
   }
 }

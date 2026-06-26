@@ -79,7 +79,7 @@ const PAGE_TEMPLATE = {
       selector: '#root-content > div.main-page > section.mp-section.mp-toolkits.mp-slider',
       style: null,
       blocks: ['carousel-toolkits'],
-      defaultContent: ['#mp-toolkits-header'],
+      defaultContent: ['#mp-toolkits-header', 'section.mp-toolkits h3.mp-title--h2'],
     },
     {
       id: 'stats',
@@ -87,7 +87,7 @@ const PAGE_TEMPLATE = {
       selector: '#root-content > div.main-page > section.mp-section.mp-stats',
       style: null,
       blocks: ['cards-stats'],
-      defaultContent: ['#mp-stats-header'],
+      defaultContent: ['#mp-stats-header', 'section.mp-stats h3.mp-title--h2'],
     },
     {
       id: 'testimonials',
@@ -103,7 +103,7 @@ const PAGE_TEMPLATE = {
       selector: '#root-content > div.main-page > section.mp-section.mp-resources.mp-slider',
       style: null,
       blocks: ['carousel-resources'],
-      defaultContent: ['#mp-resources-header'],
+      defaultContent: ['#mp-resources-header', 'section.mp-resources h3.mp-title--h2'],
     },
   ],
 };

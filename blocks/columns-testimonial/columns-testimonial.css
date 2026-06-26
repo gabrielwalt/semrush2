@@ -1,33 +1,131 @@
+/* Customer testimonial — two-cell columns block.
+   Sits on a dark section (.section.dark provides the near-black background).
+   Cell 1: quote figure on near-black card (light text).
+   Cell 2: results stat highlight on a light card (dark text).
+   All values extracted from .mp-client-testimonials__layout on semrush.com. */
+
+/* Row container — single row, two cells. Mobile-first: stacked. */
 .columns-testimonial > div {
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
-.columns-testimonial img {
-  width: 100%;
+/* --- Cell 1: quote figure (near-black card) --- */
+.columns-testimonial > div > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px;
+  border-radius: 8px;
+
+  /* Brand near-black — never pure #000 (Semrush design team rule). */
+  background-color: var(--brand-near-black);
+  color: var(--background-color);
 }
 
-.columns-testimonial > div > div {
-  order: 1;
+/* Brand logo (e.g. ZoomInfo) — height-constrained, intrinsic width. */
+.columns-testimonial > div > div:first-child > p:first-child {
+  margin: 0;
+  line-height: 0;
 }
 
-.columns-testimonial > div > .columns-testimonial-img-col {
-  order: 0;
+.columns-testimonial > div > div:first-child > p:first-child img {
+  width: auto;
+  height: 32px;
 }
 
-.columns-testimonial > div > .columns-testimonial-img-col img {
-  display: block;
+/* Blockquote — large light quote text. */
+.columns-testimonial > div > div:first-child blockquote {
+  margin: 0;
+  padding: 0;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.52px;
+  color: var(--background-color);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.columns-testimonial > div > div:first-child blockquote p {
+  margin: 0;
+}
+
+/* Author row: square 60px photo (rendered circular) + name. */
+.columns-testimonial > div > div:first-child > p:nth-last-child(2) {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+}
+
+.columns-testimonial > div > div:first-child > p:nth-last-child(2) img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Author name. */
+.columns-testimonial > div > div:first-child > p:last-child {
+  margin: 0;
+  color: var(--background-color);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.columns-testimonial > div > div:first-child > p:last-child strong {
+  font-weight: 600;
+}
+
+/* --- Cell 2: stat highlight (light card) --- */
+.columns-testimonial > div > div:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+/* Big stat number (e.g. +373%). */
+.columns-testimonial > div > div:last-child h3 {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -2.56px;
+  color: var(--dark-color);
+}
+
+/* Stat label. */
+/* stylelint-disable-next-line no-descending-specificity */
+.columns-testimonial > div > div:last-child p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--dark-color);
 }
 
 @media (width >= 900px) {
+  /* Two columns ~2:1 (source: 914px / 450px). */
   .columns-testimonial > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: stretch;
+    gap: 12px;
   }
 
-  .columns-testimonial > div > div {
-    flex: 1;
-    order: unset;
+  .columns-testimonial > div > div:last-child {
+    justify-content: space-between;
+  }
+
+  /* Desktop stat number matches source 64px. */
+  .columns-testimonial > div > div:last-child h3 {
+    font-size: 64px;
   }
 }

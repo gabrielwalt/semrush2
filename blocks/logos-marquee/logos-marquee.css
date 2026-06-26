@@ -1,21 +1,41 @@
-.logos-marquee {
-  --logos-marquee-gap: 48px;
-  --logos-marquee-duration: 40s;
+/*
+ * Logos Marquee block.
+ * Visual values extracted from the source site (section.mp-logo-marquee):
+ *   - section padding: 40px 0
+ *   - logo row / image height: 100px
+ *   - spacing between logos: 12px (item margin-right on source)
+ *   - continuous scroll: scroll-x 120s linear infinite
+ *   - no edge mask, no grayscale filter, full opacity (logos shown in color)
+ */
 
+/* The marquee bleeds edge-to-edge; cancel the section wrapper's max-width
+   and horizontal padding so the scrolling band spans the full viewport. */
+.logos-marquee-wrapper {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.logos-marquee {
+  --logos-marquee-gap: 12px;
+  --logos-marquee-duration: 120s;
+  --logos-marquee-height: 100px;
+
+  padding: 40px 0;
   overflow: hidden;
 }
 
+/* The list is the animated track. It holds two identical groups so the
+   scroll loops seamlessly (translateX(-50%) lands at the start of the clone). */
 .logos-marquee .logos-marquee-list {
   display: flex;
   width: max-content;
-  gap: var(--logos-marquee-gap);
   animation: logos-marquee-scroll var(--logos-marquee-duration) linear infinite;
 }
 
 .logos-marquee .logos-marquee-track {
   display: flex;
   align-items: center;
-  gap: var(--logos-marquee-gap);
+  height: var(--logos-marquee-height);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -25,11 +45,14 @@
   flex: 0 0 auto;
   display: flex;
   align-items: center;
+
+  /* Source uses a trailing margin on every item; keeps the loop seamless. */
+  margin-right: var(--logos-marquee-gap);
 }
 
 .logos-marquee .logos-marquee-item img {
   display: block;
-  height: 28px;
+  height: var(--logos-marquee-height);
   width: auto;
   object-fit: contain;
 }
@@ -40,7 +63,7 @@
   }
 
   to {
-    transform: translateX(calc(-50% - (var(--logos-marquee-gap) / 2)));
+    transform: translateX(-50%);
   }
 }
 

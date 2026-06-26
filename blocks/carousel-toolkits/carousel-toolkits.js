@@ -1,5 +1,18 @@
-import { fetchPlaceholders } from '../../scripts/aem.js';
-import { moveInstrumentation } from '../../scripts/scripts.js';
+// This project's scripts/aem.js and scripts/scripts.js do not export
+// fetchPlaceholders or moveInstrumentation, so provide local equivalents:
+// placeholder labels fall back to literal English strings, and instrumentation
+// attributes (used by the Universal Editor) are copied directly.
+const placeholders = {};
+
+function moveInstrumentation(from, to) {
+  if (!from || !to) return;
+  [...from.attributes]
+    .filter((attr) => attr.name.startsWith('data-aue-') || attr.name.startsWith('data-richtext-'))
+    .forEach(({ name, value }) => {
+      to.setAttribute(name, value);
+      from.removeAttribute(name);
+    });
+}
 
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel-toolkits');
@@ -77,10 +90,29 @@ function createSlide(row, slideIndex, carouselId) {
   slide.setAttribute('id', `carousel-toolkits-${carouselId}-slide-${slideIndex}`);
   slide.classList.add('carousel-toolkits-slide');
 
-  row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    column.classList.add(`carousel-toolkits-slide-${colIdx === 0 ? 'image' : 'content'}`);
-    slide.append(column);
-  });
+  const columns = [...row.querySelectorAll(':scope > div')];
+  const imageCol = columns[0];
+  const contentCol = columns[1];
+  if (imageCol) imageCol.classList.add('carousel-toolkits-slide-image');
+  if (contentCol) contentCol.classList.add('carousel-toolkits-slide-content');
+
+  // Append the content first so heading + sub-headline sit at the top of the
+  // card, then nest the preview image between the sub-headline and the
+  // description so the visual order matches the source card (label, subtitle,
+  // image, description, CTA).
+  if (contentCol) {
+    slide.append(contentCol);
+    if (imageCol) {
+      const subtitle = contentCol.querySelector('h4');
+      if (subtitle) {
+        subtitle.after(imageCol);
+      } else {
+        contentCol.prepend(imageCol);
+      }
+    }
+  } else if (imageCol) {
+    slide.append(imageCol);
+  }
 
   const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
   if (labeledBy) {
@@ -96,8 +128,6 @@ export default async function decorate(block) {
   block.setAttribute('id', `carousel-toolkits-${carouselId}`);
   const rows = block.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
-
-  const placeholders = await fetchPlaceholders();
 
   block.setAttribute('role', 'region');
   block.setAttribute('aria-roledescription', placeholders.carousel || 'Carousel');

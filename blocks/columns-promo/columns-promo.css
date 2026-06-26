@@ -1,33 +1,170 @@
+/* columns-promo — two large stacked promo panels (light "Semrush One" + dark
+   "Enterprise"). Values extracted from .mp-promo-cards on semrush.com.
+   Dark panel uses --brand-near-black (never pure #000) per Semrush design team. */
+
+/* The block stacks the two panels with a 64px gap (source: wrapper gap 64px,
+   padding 32px 0). The columns block default lays cells out side-by-side, so we
+   override to a single column. */
 .columns-promo > div {
   display: flex;
   flex-direction: column;
+  gap: 64px;
+  padding: 32px 0;
 }
 
-.columns-promo img {
+/* Each cell is one promo card. */
+.columns-promo .columns-promo-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 5px;
+  padding: 32px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Light "Semrush One" panel — purple-to-white gradient, dark text. */
+.columns-promo .columns-promo-light {
+  background-image: linear-gradient(
+    182deg,
+    rgb(193 144 255) -4.72%,
+    rgb(220 238 235) 68.72%,
+    rgb(255 255 255) 152.44%
+  );
+  color: var(--brand-near-black);
+}
+
+/* Dark "Enterprise" panel — near-black (never pure #000), light text. */
+.columns-promo .columns-promo-dark {
+  background-color: var(--brand-near-black);
+  color: rgb(255 255 255);
+}
+
+/* Headings */
+.columns-promo .columns-promo-panel h1,
+.columns-promo .columns-promo-panel h2,
+.columns-promo .columns-promo-panel h3 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: inherit;
+}
+
+/* Description paragraph */
+.columns-promo .columns-promo-panel p {
+  margin: 0;
+  max-width: 460px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.32px;
+  color: inherit;
+}
+
+/* CTA — outline pill, inherits panel color so it inverts on the dark panel. */
+.columns-promo .columns-promo-cta:any-link,
+.columns-promo a.columns-promo-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  box-sizing: border-box;
+  min-height: 60px;
+  margin: 0;
+  border: 1px solid currentcolor;
+  border-radius: 100px;
+  padding: 0 32px;
+  background-color: transparent;
+  color: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.columns-promo .columns-promo-light .columns-promo-cta:hover,
+.columns-promo .columns-promo-light .columns-promo-cta:focus-visible {
+  background-color: var(--brand-near-black);
+  color: rgb(255 255 255);
+  text-decoration: none;
+}
+
+.columns-promo .columns-promo-dark .columns-promo-cta:hover,
+.columns-promo .columns-promo-dark .columns-promo-cta:focus-visible {
+  background-color: rgb(255 255 255);
+  color: var(--brand-near-black);
+  text-decoration: none;
+}
+
+/* Media (video) — full width on mobile, rounded to match the card. */
+.columns-promo .columns-promo-video {
   width: 100%;
 }
 
-.columns-promo > div > div {
-  order: 1;
-}
-
-.columns-promo > div > .columns-promo-img-col {
-  order: 0;
-}
-
-.columns-promo > div > .columns-promo-img-col img {
+.columns-promo .columns-promo-video video,
+.columns-promo .columns-promo-panel img {
   display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
 }
 
+/* Desktop: each panel becomes a 12-col grid. Title top-left, content
+   bottom-left (cols 1-6); media fills the right half full-height (cols 7-12). */
 @media (width >= 900px) {
-  .columns-promo > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+  .columns-promo .columns-promo-panel {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 1fr auto;
+    gap: 0 12px;
+    padding: 64px;
+    min-height: 620px;
   }
 
-  .columns-promo > div > div {
-    flex: 1;
-    order: unset;
+  .columns-promo .columns-promo-panel h1,
+  .columns-promo .columns-promo-panel h2,
+  .columns-promo .columns-promo-panel h3 {
+    grid-column: 1 / 7;
+    grid-row: 1 / 2;
+    align-self: end;
+    margin-bottom: 32px;
+    font-size: 64px;
+    line-height: 70.4px;
+    letter-spacing: -2.56px;
+  }
+
+  /* Description + CTA stack in the bottom-left cell. */
+  .columns-promo .columns-promo-panel p,
+  .columns-promo .columns-promo-panel .columns-promo-cta {
+    grid-column: 1 / 7;
+  }
+
+  .columns-promo .columns-promo-panel p {
+    grid-row: 2 / 3;
+    align-self: start;
+  }
+
+  .columns-promo .columns-promo-panel .columns-promo-cta {
+    grid-row: 3 / 4;
+    align-self: start;
+    margin-top: 32px;
+  }
+
+  /* Media spans the right half, full card height, bleeds to the right edge. */
+  .columns-promo .columns-promo-video {
+    grid-column: 7 / 13;
+    grid-row: 1 / 4;
+    align-self: stretch;
+    height: 100%;
+  }
+
+  .columns-promo .columns-promo-video video {
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px 0 0 12px;
   }
 }

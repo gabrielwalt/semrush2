@@ -1,39 +1,197 @@
+/* cards-stats — Semrush "Stats and facts" list
+   Source: section.mp-stats on https://www.semrush.com/
+   A vertical list of stat rows. Each row: an up-arrow accent box + a huge
+   number + a small title on the left, and a description sentence on the right.
+   Items rest in light gray; the active/hovered item gets a near-black number
+   block with white text and a green arrow accent. */
+
 .cards-stats > ul {
   list-style: none;
-  margin: 0;
+  margin: 60px 0 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .cards-stats > ul > li {
-  background-color: var(--background-color);
+  background-color: transparent;
 }
 
+/* Authored cell holds h3 (number), p>strong (title), p (description).
+   Lay it out as: [arrow] [figure] [description]
+                  [arrow] [title ] [description]
+   The arrow is a CSS-drawn accent (source content has no image). */
 .cards-stats .cards-stats-card-body {
+  display: grid;
+  grid-template:
+    "arrow figure description"
+    "arrow title  description"
+    / auto auto 1fr;
+  align-items: center;
+  column-gap: 24px;
   margin: 0;
 }
 
+/* Up-arrow accent box (drawn via mask so it inherits the accent color).
+   Spans both number rows in the first column. Default resting: light gray. */
+.cards-stats .cards-stats-card-body::before {
+  content: "";
+  grid-area: arrow;
+  align-self: stretch;
+  width: 100px;
+  min-height: 132px;
+  background-color: rgb(240 241 242);
+
+  /* up-arrow glyph in the accent color (resting = light gray) */
+  background-image: linear-gradient(rgb(209 210 213), rgb(209 210 213));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 60"><path d="M12 2 L22 22 H15 V58 H9 V22 H2 Z" fill="black"/></svg>');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 40% 60%;
+}
+
+/* Big number (authored as h3 / h2) */
 .cards-stats .cards-stats-card-body h2,
 .cards-stats .cards-stats-card-body h3 {
-  font-size: clamp(40px, 8vw, 72px);
+  grid-area: figure;
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 137px;
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  color: rgb(209 210 213);
+}
+
+/* Title (authored as <p><strong>) — small label under the number */
+.cards-stats .cards-stats-card-body p strong {
+  font-weight: 500;
+}
+
+.cards-stats .cards-stats-card-body > p:first-of-type {
+  grid-area: title;
+  align-self: start;
+  margin: 4px 0 0;
+  font-family: var(--body-font-family);
+  font-size: 24px;
+  font-weight: 500;
   line-height: 1;
-  margin: 0 0 8px;
+  letter-spacing: -0.013em;
+  color: rgb(209 210 213);
 }
 
-.cards-stats .cards-stats-card-image {
-  line-height: 0;
+/* Description — right column, vertically centered */
+.cards-stats .cards-stats-card-body > p:last-of-type {
+  grid-area: description;
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: rgb(209 210 213);
 }
 
-@media (width >= 600px) {
-  .cards-stats > ul {
-    grid-template-columns: repeat(2, 1fr);
+/* If a row authored only one paragraph, treat it as the description */
+.cards-stats .cards-stats-card-body > p:only-of-type {
+  grid-area: description;
+}
+
+/* Active / emphasized state — first item by default and any hovered item.
+   Near-black block behind the number + title, white text, green arrow,
+   near-black description. Number scales up. */
+.cards-stats > ul > li:first-child .cards-stats-card-body,
+.cards-stats > ul > li:hover .cards-stats-card-body {
+  column-gap: 42px;
+}
+
+.cards-stats > ul > li:first-child .cards-stats-card-body::before,
+.cards-stats > ul > li:hover .cards-stats-card-body::before {
+  width: 189px;
+  min-height: 250px;
+  background-color: rgb(24 240 191);
+
+  /* gradient arrow accent on green box */
+  background-image: linear-gradient(135deg, rgb(168 120 255) 0%, rgb(24 240 191) 55%);
+  mask-size: 38% 62%;
+}
+
+/* near-black block painted across the figure + title rows: the figure carries
+   the top of the block, the title carries the bottom, and they sit flush. */
+.cards-stats > ul > li:first-child .cards-stats-card-body h3,
+.cards-stats > ul > li:first-child .cards-stats-card-body h2,
+.cards-stats > ul > li:hover .cards-stats-card-body h3,
+.cards-stats > ul > li:hover .cards-stats-card-body h2 {
+  align-self: stretch;
+  padding: 0 42px 0 24px;
+  font-size: 180px;
+  color: rgb(255 255 255);
+  background-color: var(--brand-near-black);
+  border-radius: 4px 4px 0 0;
+}
+
+.cards-stats > ul > li:first-child .cards-stats-card-body > p:first-of-type,
+.cards-stats > ul > li:hover .cards-stats-card-body > p:first-of-type {
+  align-self: stretch;
+  margin: 0;
+  padding: 0 42px 16px 24px;
+  color: rgb(255 255 255);
+  background-color: var(--brand-near-black);
+  border-radius: 0 0 4px 4px;
+}
+
+.cards-stats > ul > li:first-child .cards-stats-card-body > p:last-of-type,
+.cards-stats > ul > li:hover .cards-stats-card-body > p:last-of-type {
+  color: var(--brand-near-black);
+}
+
+/* Mobile: stack number above description, scale the giant figure down */
+@media (width < 900px) {
+  .cards-stats .cards-stats-card-body {
+    grid-template:
+      "arrow figure"
+      "arrow title"
+      "description description"
+      / auto 1fr;
+    gap: 8px 16px;
   }
-}
 
-@media (width >= 900px) {
-  .cards-stats > ul {
-    grid-template-columns: repeat(3, 1fr);
+  .cards-stats .cards-stats-card-body::before {
+    width: 56px;
+    min-height: 80px;
+  }
+
+  .cards-stats .cards-stats-card-body h2,
+  .cards-stats .cards-stats-card-body h3 {
+    font-size: 72px;
+  }
+
+  .cards-stats .cards-stats-card-body > p:last-of-type {
+    margin-top: 8px;
+    font-size: 18px;
+  }
+
+  .cards-stats > ul > li:first-child .cards-stats-card-body::before,
+  .cards-stats > ul > li:hover .cards-stats-card-body::before {
+    width: 72px;
+    min-height: 100px;
+  }
+
+  .cards-stats > ul > li:first-child .cards-stats-card-body h3,
+  .cards-stats > ul > li:first-child .cards-stats-card-body h2,
+  .cards-stats > ul > li:hover .cards-stats-card-body h3,
+  .cards-stats > ul > li:hover .cards-stats-card-body h2 {
+    padding: 0 16px;
+    font-size: 88px;
+  }
+
+  .cards-stats > ul > li:first-child .cards-stats-card-body > p:first-of-type,
+  .cards-stats > ul > li:hover .cards-stats-card-body > p:first-of-type {
+    padding: 0 16px 12px;
   }
 }

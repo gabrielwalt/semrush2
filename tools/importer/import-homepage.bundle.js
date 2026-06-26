@@ -432,36 +432,41 @@ var CustomImportScript = (() => {
     beforeTransform: "beforeTransform",
     afterTransform: "afterTransform"
   };
+  function findSectionEl(element, selector) {
+    if (!selector) return null;
+    return element.querySelector(selector) || element.querySelector(selector.split(">").pop().trim());
+  }
   function transform2(hookName, element, payload) {
-    if (hookName === TransformHook2.afterTransform) {
-      const sections = payload && payload.template && payload.template.sections || [];
-      if (sections.length < 2) return;
-      const doc = element.ownerDocument;
-      sections.slice().reverse().forEach((section, reverseIndex) => {
-        const index = sections.length - 1 - reverseIndex;
-        const sel = section.selector;
-        let sectionEl = null;
-        if (sel) {
-          sectionEl = element.querySelector(sel) || element.querySelector(sel.split(">").pop().trim());
-        }
-        if (!sectionEl) return;
-        if (section.style) {
-          const metaBlock = WebImporter.Blocks.createBlock(doc, {
-            name: "Section Metadata",
-            cells: { style: section.style }
-          });
-          if (sectionEl.nextSibling) {
-            sectionEl.parentNode.insertBefore(metaBlock, sectionEl.nextSibling);
-          } else {
-            sectionEl.parentNode.appendChild(metaBlock);
-          }
-        }
-        if (index > 0) {
-          const hr = doc.createElement("hr");
-          sectionEl.parentNode.insertBefore(hr, sectionEl);
+    if (hookName !== TransformHook2.beforeTransform) return;
+    const sections = payload && payload.template && payload.template.sections || [];
+    if (sections.length < 2) return;
+    const doc = element.ownerDocument;
+    sections.forEach((section, index) => {
+      const sectionEl = findSectionEl(element, section.selector);
+      if (!sectionEl) return;
+      const parent = sectionEl.parentNode;
+      if (!parent) return;
+      if (index > 0) {
+        parent.insertBefore(doc.createElement("hr"), sectionEl);
+      }
+      (section.defaultContent || []).forEach((dcSelector) => {
+        const dcEl = element.querySelector(dcSelector);
+        if (dcEl && dcEl !== sectionEl && sectionEl.contains(dcEl)) {
+          parent.insertBefore(dcEl, sectionEl);
         }
       });
-    }
+      if (section.style) {
+        const metaBlock = WebImporter.Blocks.createBlock(doc, {
+          name: "Section Metadata",
+          cells: { style: section.style }
+        });
+        if (sectionEl.nextSibling) {
+          parent.insertBefore(metaBlock, sectionEl.nextSibling);
+        } else {
+          parent.appendChild(metaBlock);
+        }
+      }
+    });
   }
 
   // tools/importer/import-homepage.js
@@ -529,7 +534,7 @@ var CustomImportScript = (() => {
         selector: "#root-content > div.main-page > section.mp-section.mp-toolkits.mp-slider",
         style: null,
         blocks: ["carousel-toolkits"],
-        defaultContent: ["#mp-toolkits-header"]
+        defaultContent: ["#mp-toolkits-header", "section.mp-toolkits h3.mp-title--h2"]
       },
       {
         id: "stats",
@@ -537,7 +542,7 @@ var CustomImportScript = (() => {
         selector: "#root-content > div.main-page > section.mp-section.mp-stats",
         style: null,
         blocks: ["cards-stats"],
-        defaultContent: ["#mp-stats-header"]
+        defaultContent: ["#mp-stats-header", "section.mp-stats h3.mp-title--h2"]
       },
       {
         id: "testimonials",
@@ -553,7 +558,7 @@ var CustomImportScript = (() => {
         selector: "#root-content > div.main-page > section.mp-section.mp-resources.mp-slider",
         style: null,
         blocks: ["carousel-resources"],
-        defaultContent: ["#mp-resources-header"]
+        defaultContent: ["#mp-resources-header", "section.mp-resources h3.mp-title--h2"]
       }
     ]
   };

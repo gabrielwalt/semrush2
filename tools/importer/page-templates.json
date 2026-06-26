@@ -98,7 +98,8 @@
             "carousel-toolkits"
           ],
           "defaultContent": [
-            "#mp-toolkits-header"
+            "#mp-toolkits-header",
+            "section.mp-toolkits h3.mp-title--h2"
           ]
         },
         {
@@ -110,7 +111,8 @@
             "cards-stats"
           ],
           "defaultContent": [
-            "#mp-stats-header"
+            "#mp-stats-header",
+            "section.mp-stats h3.mp-title--h2"
           ]
         },
         {
@@ -134,7 +136,8 @@
             "carousel-resources"
           ],
           "defaultContent": [
-            "#mp-resources-header"
+            "#mp-resources-header",
+            "section.mp-resources h3.mp-title--h2"
           ]
         }
       ]
