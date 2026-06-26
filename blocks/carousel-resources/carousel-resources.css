@@ -1,8 +1,7 @@
 /* Resources carousel — horizontal slider of article cards.
    Source: section.mp-resources on semrush.com. Values extracted via
-   getComputedStyle. This block renders inside a `dark` section, so text,
-   borders and nav icons are flipped to the light/background color for
-   contrast (source renders on white; the migrated section is near-black). */
+   getComputedStyle. Renders on the default light background, so text,
+   borders and nav icons use the dark foreground tokens (matches source). */
 
 .carousel-resources .carousel-resources-slides-container {
   position: relative;
@@ -80,8 +79,7 @@
 }
 
 /* Title — source .mp-resources__item-title <a>: 21px / 600 / line-height 31.5px,
-   letter-spacing -0.32px, no underline. h3 margin reset to 0. Dark section ->
-   light text. */
+   letter-spacing -0.32px, no underline. h3 margin reset to 0. */
 .carousel-resources .carousel-resources-slide-content h3 {
   margin: 0;
   font-size: 21px;
@@ -91,7 +89,7 @@
 }
 
 .carousel-resources .carousel-resources-slide-content h3 a:any-link {
-  color: var(--background-color);
+  color: var(--text-color);
   text-decoration: none;
 }
 
@@ -106,7 +104,7 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
-  color: var(--background-color);
+  color: var(--text-color);
 }
 
 /* Footer tags — source .mp-resources__item-info: 24px above, tags are plain
@@ -128,8 +126,8 @@
 }
 
 /* Prev / next arrows — source .mp-button--icon: 60x60px circle, transparent
-   background, 1px solid border, icon in foreground color. Dark section ->
-   light border/icon. Positioned top-right above the cards (source layout). */
+   background, 1px solid border, icon in foreground color. Positioned top-right
+   above the cards (source layout). */
 .carousel-resources .carousel-resources-navigation-buttons {
   display: flex;
   align-items: center;
@@ -145,18 +143,18 @@
   height: 60px;
   margin: 0;
   padding: 0;
-  border: 1px solid var(--background-color);
+  border: 1px solid var(--text-color);
   border-radius: 100px;
   background-color: transparent;
-  color: var(--background-color);
+  color: var(--text-color);
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s, opacity 0.2s;
 }
 
 .carousel-resources .carousel-resources-navigation-buttons button:hover,
 .carousel-resources .carousel-resources-navigation-buttons button:focus-visible {
-  background-color: var(--background-color);
-  color: var(--dark-color);
+  background-color: var(--text-color);
+  color: var(--background-color);
 }
 
 /* Disabled arrow — source uses a muted grey border. */
