@@ -14,7 +14,7 @@
 }
 
 /* Navigation bar: prev arrow | "N / total" counter | next arrow, centered. */
-.carousel-testimonial .carousel-testimonial-nav {
+.carousel-testimonial .carousel-testimonial-navigation-buttons {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +33,7 @@
 
 /* Prev/next are simple long-line arrow buttons (no fill, no border, no radius),
    matching the source. Color uses brand near-black, never pure #000. */
-.carousel-testimonial .carousel-testimonial-nav button {
+.carousel-testimonial .carousel-testimonial-navigation-buttons button {
   position: relative;
   width: 42px;
   height: 46px;
@@ -47,13 +47,13 @@
   transition: opacity 0.2s;
 }
 
-.carousel-testimonial .carousel-testimonial-nav button:hover,
-.carousel-testimonial .carousel-testimonial-nav button:focus-visible {
+.carousel-testimonial .carousel-testimonial-navigation-buttons button:hover,
+.carousel-testimonial .carousel-testimonial-navigation-buttons button:focus-visible {
   opacity: 0.6;
 }
 
 /* Arrow shaft */
-.carousel-testimonial .carousel-testimonial-nav button::before {
+.carousel-testimonial .carousel-testimonial-navigation-buttons button::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -65,7 +65,7 @@
 }
 
 /* Arrow head */
-.carousel-testimonial .carousel-testimonial-nav button::after {
+.carousel-testimonial .carousel-testimonial-navigation-buttons button::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -76,12 +76,12 @@
   border-left: 0;
 }
 
-.carousel-testimonial .carousel-testimonial-nav button.slide-prev::after {
+.carousel-testimonial .carousel-testimonial-navigation-buttons button.slide-prev::after {
   left: calc(50% - 14px);
   transform: translateY(-50%) rotate(-135deg);
 }
 
-.carousel-testimonial .carousel-testimonial-nav button.slide-next::after {
+.carousel-testimonial .carousel-testimonial-navigation-buttons button.slide-next::after {
   right: calc(50% - 14px);
   transform: translateY(-50%) rotate(45deg);
 }
