@@ -1,0 +1,11 @@
+{
+  "sites": {
+    "semrush2": {
+      "previewOrg": "gabrielwalt",
+      "previewSite": "semrush2",
+      "contentHostUrl": "https://content.da.live/gabrielwalt/semrush2/",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  },
+  "type": "da"
+}

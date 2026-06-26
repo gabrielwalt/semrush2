@@ -1,0 +1,37 @@
+{
+  "variantName": "logos-marquee",
+  "baseBlock": "logos",
+  "version": "1.0.0",
+  "created": "2026-06-26T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.semrush.com/",
+    "originPage": "Semrush marketing homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "logo-marquee",
+    "imagePattern": "icon"
+  },
+  "contentPattern": {
+    "structure": "row of brand logo images",
+    "buttonCount": 0,
+    "imageCount": 13
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "customer/partner logo strips",
+      "trusted-by brand bars with continuous scroll animation"
+    ],
+    "notSuitableFor": [
+      "logo grids that should remain static",
+      "single featured logo"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-26T00:00:00.000Z"
+  }
+}

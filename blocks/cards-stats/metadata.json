@@ -1,0 +1,37 @@
+{
+  "variantName": "cards-stats",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-26T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.semrush.com/",
+    "originPage": "Semrush marketing homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "stats",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "big number + title + description per item, 3x2 grid",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "stats / facts figures grids",
+      "metric highlight rows (number + label + description)"
+    ],
+    "notSuitableFor": [
+      "image-led product/article cards",
+      "single stat callouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-26T00:00:00.000Z"
+  }
+}

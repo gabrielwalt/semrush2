@@ -1,0 +1,37 @@
+{
+  "variantName": "carousel-resources",
+  "baseBlock": "carousel",
+  "version": "1.0.0",
+  "created": "2026-06-26T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.semrush.com/",
+    "originPage": "Semrush marketing homepage",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "resources-slider",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "thumbnail image | linked title + description + tags per slide",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "article / resource card sliders with thumbnail, linked title, description and tags",
+      "news or blog highlight carousels"
+    ],
+    "notSuitableFor": [
+      "media-heavy feature sliders (use carousel-toolkits)",
+      "static card grids (use cards)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-26T00:00:00.000Z"
+  }
+}

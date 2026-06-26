@@ -1,0 +1,37 @@
+{
+  "variantName": "columns-promo",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-06-26T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.semrush.com/",
+    "originPage": "Semrush marketing homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "mixed",
+    "density": "spacious",
+    "purpose": "promo",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "heading + description + CTA + video per panel",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "large promotional panels with heading, copy, CTA and media",
+      "two-up feature showcases"
+    ],
+    "notSuitableFor": [
+      "small repeating item grids (use cards)",
+      "data tables"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-26T00:00:00.000Z"
+  }
+}

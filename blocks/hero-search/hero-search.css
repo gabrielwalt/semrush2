@@ -1,0 +1,47 @@
+.hero-search-container .hero-search-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-search {
+  position: relative;
+  padding: 40px 24px;
+  min-height: 300px;
+}
+
+.hero-search h1,
+.hero-search h2,
+.hero-search h3,
+.hero-search h4,
+.hero-search h5,
+.hero-search h6,
+.hero-search p {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--background-color);
+}
+
+.hero-search.no-image * {
+  color: var(--text-color);
+}
+
+.hero-search picture {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.hero-search img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+@media (width >= 900px) {
+  .hero-search {
+    padding: 40px 32px;
+  }
+}

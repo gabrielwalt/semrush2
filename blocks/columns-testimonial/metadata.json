@@ -1,0 +1,37 @@
+{
+  "variantName": "columns-testimonial",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-06-26T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.semrush.com/",
+    "originPage": "Semrush marketing homepage",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "testimonial",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "quote (logo + blockquote + author) | results stat block",
+    "buttonCount": 0,
+    "imageCount": 3
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "customer testimonial paired with a results/stat highlight",
+      "quote + metric side-by-side layouts on dark sections"
+    ],
+    "notSuitableFor": [
+      "plain multi-column text",
+      "image galleries"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-26T00:00:00.000Z"
+  }
+}

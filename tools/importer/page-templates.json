@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "projectType": "da"
+  },
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://www.semrush.com/"
+      ],
+      "representativeUrl": "https://www.semrush.com/",
+      "coverageGaps": [],
+      "description": "Semrush marketing homepage: hero with search form and logo marquee, promo cards, solutions/toolkits slider, stats facts, customer testimonials, and resources slider.",
+      "blocks": [
+        {
+          "name": "hero-search",
+          "instances": [
+            "section.mp-hero"
+          ]
+        },
+        {
+          "name": "logos-marquee",
+          "instances": [
+            "section.mp-logo-marquee",
+            ".mp-logo-marquee"
+          ]
+        },
+        {
+          "name": "columns-promo",
+          "instances": [
+            ".mp-promo-cards-wrapper"
+          ]
+        },
+        {
+          "name": "carousel-toolkits",
+          "instances": [
+            "section.mp-toolkits",
+            ".mp-section.mp-toolkits"
+          ]
+        },
+        {
+          "name": "cards-stats",
+          "instances": [
+            "section.mp-stats",
+            ".mp-section.mp-stats"
+          ]
+        },
+        {
+          "name": "section-testimonials",
+          "instances": [
+            "section.mp-client-testimonials",
+            ".mp-section.mp-client-testimonials"
+          ],
+          "section": "dark"
+        },
+        {
+          "name": "columns-testimonial",
+          "instances": [
+            ".mp-client-testimonials__layout"
+          ]
+        },
+        {
+          "name": "carousel-resources",
+          "instances": [
+            "section.mp-resources",
+            ".mp-section.mp-resources"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "hero",
+          "name": "Hero",
+          "selector": "#root-content > div.main-page > section.mp-hero",
+          "style": null,
+          "blocks": [
+            "hero-search",
+            "logos-marquee"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "promoCards",
+          "name": "Promo Cards",
+          "selector": "#root-content > div.main-page > div.mp-promo-cards-wrapper",
+          "style": null,
+          "blocks": [
+            "columns-promo"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "toolkits",
+          "name": "Solutions Toolkits",
+          "selector": "#root-content > div.main-page > section.mp-section.mp-toolkits.mp-slider",
+          "style": null,
+          "blocks": [
+            "carousel-toolkits"
+          ],
+          "defaultContent": [
+            "#mp-toolkits-header"
+          ]
+        },
+        {
+          "id": "stats",
+          "name": "Stats and Facts",
+          "selector": "#root-content > div.main-page > section.mp-section.mp-stats",
+          "style": null,
+          "blocks": [
+            "cards-stats"
+          ],
+          "defaultContent": [
+            "#mp-stats-header"
+          ]
+        },
+        {
+          "id": "testimonials",
+          "name": "Customer Testimonials",
+          "selector": "#root-content > div.main-page > section.mp-section.mp-client-testimonials",
+          "style": "dark",
+          "blocks": [
+            "columns-testimonial"
+          ],
+          "defaultContent": [
+            "#mp-client-testimonials-header"
+          ]
+        },
+        {
+          "id": "resources",
+          "name": "Resources",
+          "selector": "#root-content > div.main-page > section.mp-section.mp-resources.mp-slider",
+          "style": null,
+          "blocks": [
+            "carousel-resources"
+          ],
+          "defaultContent": [
+            "#mp-resources-header"
+          ]
+        }
+      ]
+    }
+  ]
+}
